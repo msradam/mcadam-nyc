@@ -1,0 +1,25 @@
+{"q":"Get me from Penn Station to Grand Central","expect_verb":"route","expect_ok":true}
+{"q":"How do I walk from Times Square to the Empire State Building","expect_verb":"route","expect_ok":true}
+{"q":"Wheelchair-accessible route from Penn Station to Grand Central","expect_verb":"route","expect_ok":true}
+{"q":"Step-free walk from Times Square to Empire State","expect_verb":"route","expect_ok":true}
+{"q":"Low-vision route from Washington Square Park to Union Square","expect_verb":"route","expect_ok":true}
+{"q":"Route Brooklyn Bridge MN to DUMBO","expect_verb":"route","expect_ok":true}
+{"q":"Walk Atlantic Av-Barclays to DUMBO","expect_verb":"route","expect_ok":true}
+{"q":"Compare wheelchair vs distance from Penn Station to Grand Central","expect_verb":"compare","expect_ok":true}
+{"q":"How does the distance and wheelchair routes differ from Times Square to Empire State","expect_verb":"compare","expect_ok":true}
+{"q":"Show distance and low_vision options from Union Square to Washington Sq Park","expect_verb":"compare","expect_ok":false}
+{"q":"What can I walk to from Union Square in 10 minutes","expect_verb":"reachable","expect_ok":true}
+{"q":"Show me a 15 minute walk isochrone from Times Square","expect_verb":"reachable","expect_ok":true}
+{"q":"Reachable in 5 minutes from Penn Station for a wheelchair user","expect_verb":"reachable","expect_ok":true}
+{"q":"What's a 20 minute walk from Brooklyn Bridge MN side","expect_verb":"reachable","expect_ok":true}
+{"q":"If we close 5th Avenue, how does Penn to Grand Central change","expect_verb":"closure","expect_ok":false}
+{"q":"What if Broadway is closed, replan from Times Square to Empire State","expect_verb":"closure","expect_ok":false}
+{"q":"Close West 33rd Street and reroute Penn to Grand Central","expect_verb":"closure","expect_ok":false}
+{"q":"Inspect segment n_312002 to n_294199","expect_verb":"inspect","expect_ok":true}
+{"q":"Tell me about the segment from n_131685 to n_131686","expect_verb":"inspect","expect_ok":false}
+{"q":"What ADA properties does segment n_0 to n_1 have","expect_verb":"inspect","expect_ok":true}
+{"q":"Penn Station to Grand Central, accessible","expect_verb":"route","expect_ok":true}
+{"q":"Walk Times Square to Empire State avoiding stairs","expect_verb":"route","expect_ok":true}
+{"q":"Prospect Park to Atlantic Av-Barclays","expect_verb":"route","expect_ok":false}
+{"q":"15 min reachable from Court Sq Queens","expect_verb":"reachable","expect_ok":true}
+{"q":"Compare profiles Penn Station to Times Square","expect_verb":"compare","expect_ok":true}
