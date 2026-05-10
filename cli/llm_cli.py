@@ -39,7 +39,7 @@ SYSTEM = dedent("""\
        Compare two profiles on the same route.
 
     3. mcadam reachable ORIGIN --minutes N --profile P
-       Show what's reachable on foot in N minutes.
+       Show what's reachable on foot in N minutes (no DEST).
 
     4. mcadam closure ORIGIN DEST --close-name "STREET NAME" --profile P
        What-if: close a named street and replan.
@@ -47,11 +47,8 @@ SYSTEM = dedent("""\
     5. mcadam inspect U_NODE V_NODE
        Inspect ADA properties of one segment by node IDs (e.g. n_312002 n_294199).
 
-    Place names like "Penn Station", "Grand Central", "Times Square",
-    "Brooklyn Bridge MN", etc. should be quoted as a single argument.
-
     PROFILE DEFAULTS:
-    - if user mentions wheelchair / accessible / step-free / curb cut → wheelchair
+    - if user mentions wheelchair / accessible / step-free / ADA / curb cut / no stairs → wheelchair
     - if user mentions blind / low vision / tactile / audible → low_vision
     - otherwise → distance
 
@@ -63,20 +60,41 @@ SYSTEM = dedent("""\
     Q: wheelchair-friendly walk from Times Square to the Empire State Building
     A: mcadam route "Times Square" "Empire State Building" --profile wheelchair
 
+    Q: low-vision route from Washington Square Park to Union Square
+    A: mcadam route "Washington Sq Park" "Union Square" --profile low_vision
+
+    Q: compare wheelchair vs distance from Penn Station to Grand Central
+    A: mcadam compare "Penn Station" "Grand Central" --profiles distance,wheelchair
+
+    Q: how does wheelchair routing differ from distance Times Square to Empire State
+    A: mcadam compare "Times Square" "Empire State Building" --profiles distance,wheelchair
+
+    Q: side by side wheelchair and distance Union Square to Washington Sq Park
+    A: mcadam compare "Union Square" "Washington Sq Park" --profiles distance,wheelchair
+
+    Q: how much longer is the wheelchair walk Brooklyn Bridge MN to DUMBO
+    A: mcadam compare "Brooklyn Bridge MN" "DUMBO" --profiles distance,wheelchair
+
     Q: what's reachable on foot from Union Square in 10 minutes
     A: mcadam reachable "Union Square" --minutes 10 --profile distance
 
-    Q: how does wheelchair routing differ from distance from Penn to Grand Central?
-    A: mcadam compare "Penn Station" "Grand Central" --profiles distance,wheelchair
+    Q: 15-minute walk isochrone from Times Square
+    A: mcadam reachable "Times Square" --minutes 15 --profile distance
 
-    Q: if Broadway is closed near Times Square, how do I get from Times Square to the Empire State?
+    Q: how far can I walk from Penn Station in 8 minutes for a wheelchair user
+    A: mcadam reachable "Penn Station" --minutes 8 --profile wheelchair
+
+    Q: if Broadway is closed near Times Square, how do I get to the Empire State?
     A: mcadam closure "Times Square" "Empire State Building" --close-name "Broadway" --profile distance
+
+    Q: with 5th Avenue shut, replan Penn Station to Grand Central
+    A: mcadam closure "Penn Station" "Grand Central" --close-name "5th Avenue" --profile distance
+
+    Q: 33rd Street closure, walk Penn Station to Grand Central
+    A: mcadam closure "Penn Station" "Grand Central" --close-name "33rd Street" --profile distance
 
     Q: inspect segment n_312002 to n_294199
     A: mcadam inspect n_312002 n_294199
-
-    Q: low-vision route from Washington Square Park to Union Square
-    A: mcadam route "Washington Sq Park" "Union Square" --profile low_vision
 
     Now translate the next query.
 """)

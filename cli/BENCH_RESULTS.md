@@ -1,6 +1,7 @@
 # CLI-translation benchmark — Granite via Ollama
 
 > *Date: 2026-05-10. M3 MacBook Air, Ollama 0.21.0.*
+> *Bench file: `cli/bench_100.jsonl` (105 queries, all 5 CLI verbs).*
 
 ## Hypothesis
 
@@ -10,72 +11,74 @@ scores 0/5 on the existing in-browser MTA harness), but they can emit
 mechanical, and learnable from a handful of few-shot examples in the
 system prompt.
 
-## Setup
+## Headline result
 
-- 105 NL queries (`cli/bench_100.jsonl`) spanning all five CLI verbs
-  (`route`, `compare`, `reachable`, `closure`, `inspect`).
-- Single-shot prompt with the same few-shot examples used throughout.
-  **`route` gets 3 examples; `compare`/`reachable`/`closure`/`inspect`
-  get 1 each.**
-- `temperature=0.0`, stop tokens on newline.
-- `verb match` = parsed CLI verb equals expected verb.
-
-## Results
-
-| Model | Size | Verb match | p50 latency | p95 latency |
+| Model | Verb match | p50 latency | p95 latency | Wall (105 q) |
 |---|---|---|---|---|
-| `granite4:350m` (25-query bench) | ~250 MB | 80% (20/25) | 225 ms | — |
-| `granite4:350m` (105-query bench) | ~250 MB | **70%** (73/105) | **223 ms** | 287 ms |
-| `granite4:1b`   (25-query bench) | ~750 MB | 100% (25/25) | 982 ms | — |
+| `granite4:350m` | **77%** (81/105) | 247 ms | 327 ms | 26 s |
+| `granite4:1b`   | **100%** (105/105) | 863 ms | 1206 ms | 94 s |
 
-Per-verb breakdown on the 105-query bench (350m):
+The hypothesis lands. **1B is production-ready** on the CLI-translation
+task — perfect verb selection across all five verbs, sub-second latency.
+350m is faster but plateaus at 77% under prompt engineering alone.
 
-| Verb | Pass | Total | Rate |
-|---|---|---|---|
-| `route`     | 38 | 38 | **100%** |
-| `inspect`   | 15 | 15 | **100%** |
-| `compare`   | 11 | 15 | 73% |
-| `reachable` |  6 | 21 | 29% |
-| `closure`   |  3 | 16 | **19%** |
+## Per-verb breakdown (operational prompt v5)
 
-Confusion matrix (expected → got, count):
+| Verb | 350m | 1B |
+|---|---|---|
+| `route`     | 100% (38/38) | 100% (38/38) |
+| `inspect`   | 100% (15/15) | 100% (15/15) |
+| `compare`   | 53% (8/15)   | 100% (15/15) |
+| `reachable` | 48% (10/21)  | 100% (21/21) |
+| `closure`   | 62% (10/16)  | 100% (16/16) |
 
-| Expected | Got | Count | Why |
-|---|---|---|---|
-| reachable | route | 15 | Place name + "minutes" pulls toward `route` |
-| closure   | route | 8  | Model ignores "closed" / "block" markers |
-| compare   | route | 4  | Same default-attractor pattern |
-| closure   | compare | 3 | "differ" / "change" patterns pull toward compare |
-| closure   | inspect | 2 | Idiosyncratic noise |
+350m is solved on `route` and `inspect` — saturated, sub-250 ms. The
+remaining failures are all on the three "structured" verbs.
 
-## What this means
+350m confusion (operational prompt):
 
-1. **`route` and `inspect` are solved at 350m.** 100% pass across 53
-   queries with diverse phrasings (formal, casual, elliptical, all four
-   profile-language variations). Sub-250 ms latency.
-2. **`compare`, `reachable`, and `closure` are *not* solved at 350m**
-   under the current prompt. The cliff is between 100% (verbs with 3
-   few-shots) and 19–73% (verbs with 1 few-shot).
-3. **The miss pattern is concentrated, not random.** 31 of the 32 misses
-   default to a richer-exemplified verb (`route` or `compare`). This is
-   a prompt-engineering problem, not a model-capability ceiling.
-4. **Latency is essentially constant** across pass and fail: p50 223 ms,
-   p95 287 ms. No "the model thinks longer when it's confused."
+| Expected | Got | Count |
+|---|---|---|
+| reachable | route | 11 |
+| compare   | route | 7 |
+| closure   | route | 5 |
+| closure   | compare | 1 |
 
-## Implications for Mcadam v0.1
+## Prompt iteration log (350m)
 
-- **Strategy A — fix the prompt.** Add 2 more few-shots each for `compare`,
-  `reachable`, and `closure`. Expected lift: 350m to 90%+ overall. Test
-  this next.
-- **Strategy B — keep 350m as the "safe-verbs" tier.** Use 350m for
-  `route` and `inspect` only (likely ~60–70% of real query volume); fall
-  through to 1b for everything else. A tiered-cache pattern.
-- **Strategy C — 1b primary, 350m fast-mode opt-in.** What the
-  ARCHITECTURE sketch already proposes. The bench supports this.
+| v | Examples | route | compare | reachable | closure | inspect | overall |
+|---|---|---|---|---|---|---|---|
+| v1 (small bench, 25q) | 1 each | 100% | 75% | 50% | 50% | 100% | **80%** |
+| v1 (big bench, 105q) | 1 each | 100% | 73% | 29% | 19% | 100% | **70%** |
+| v2 | 3 each | 100% | 60% | 48% | 44% | 100% | **75%** |
+| v3 (rules-first) | 1 each + rules | 100% | 60% | 14% | 31% | 93% | 66% |
+| v4 (1 compare, 3 r/c) | mixed | 100% | 33% | 43% | 56% | 93% | 71% |
+| **v5 (operational)** | balanced | **100%** | 53% | 48% | 62% | **100%** | **77%** |
+| v6 (more reachable) | 5 reachable | 97% | 60% | 43% | 62% | 93% | 75% |
 
-The **right next experiment** is Strategy A (cheap, fully reversible).
-If the prompt-rich 350m hits ≥90% on this bench, it becomes a credible
-v1 default with 1b as fallback for unparseable output.
+Lessons:
+
+1. **Small bench (25q) overstates by ~10 points.** Use 105q for ranking.
+2. **More examples ≠ better.** v6 had more reachable examples but
+   regressed everywhere else. 350m has a finite attention budget; extra
+   examples in one verb steal from others.
+3. **Rules don't help (v3).** The model pattern-matches; abstract
+   decision rules consume tokens without giving exemplars to imitate.
+4. **Diversity > count for `compare`.** v5 added compare examples with
+   varied signal verbs ("vs", "differ", "side by side", "how much
+   longer") and recovered most of the v4 regression.
+5. **`reachable→route` is the most stubborn confusion.** 11 cases. The
+   structural pattern "X minutes from Y" looks like route to the model
+   despite multiple counter-examples. May need fine-tuning to clear.
+
+## Architecture decision the bench supports
+
+- **Default tier: Granite-4-1B.** 100% on the bench, sub-second
+  latency. Ship as the primary local-LLM tier in Mcadam.
+- **Optional fast mode: Granite-4-350m for `route` + `inspect` only.**
+  53/53 = 100% on those two verbs (likely ~60–70% of real query volume),
+  at 247 ms p50. For all other verb-flavored queries, fall through to 1B.
+- **No JSON Schema decoding needed.** The CLI grammar is the schema.
 
 ## Reproducibility
 
@@ -87,7 +90,6 @@ ollama pull granite4:350m granite4:1b
 mcadam smoke
 
 # Run the benches
-python -m cli.llm_cli --bench cli/bench.jsonl     --model granite4:350m
 python -m cli.llm_cli --bench cli/bench_100.jsonl --model granite4:350m
-python -m cli.llm_cli --bench cli/bench.jsonl     --model granite4:1b
+python -m cli.llm_cli --bench cli/bench_100.jsonl --model granite4:1b
 ```
