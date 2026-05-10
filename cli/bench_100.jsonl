@@ -1,0 +1,105 @@
+{"q":"Get me from Penn Station to Grand Central","expect_verb":"route"}
+{"q":"How do I walk from Times Square to the Empire State Building","expect_verb":"route"}
+{"q":"Plan a route from Union Square to Washington Sq Park","expect_verb":"route"}
+{"q":"Walk Brooklyn Bridge MN to DUMBO","expect_verb":"route"}
+{"q":"Penn Station to Grand Central","expect_verb":"route"}
+{"q":"From Atlantic Av-Barclays to Prospect Park, please","expect_verb":"route"}
+{"q":"Need walking directions from Times Square to Empire State","expect_verb":"route"}
+{"q":"Show me the way from Union Square to Penn Station","expect_verb":"route"}
+{"q":"Route from Yankee Stadium to 161 St-Yankee Stadium","expect_verb":"route"}
+{"q":"How do I get from LIC Hunters Pt to Court Sq Queens on foot","expect_verb":"route"}
+{"q":"I want to walk from Williamsburg Bridge MN to Williamsburg Bridge BK","expect_verb":"route"}
+{"q":"Direct me from Grand Central to Times Square","expect_verb":"route"}
+{"q":"Walking directions: Empire State Building to Penn Station","expect_verb":"route"}
+{"q":"From Court Sq Queens to LIC Hunters Pt","expect_verb":"route"}
+{"q":"Take me from Brooklyn Bridge MN to Penn Station","expect_verb":"route"}
+{"q":"Wheelchair-accessible route from Penn Station to Grand Central","expect_verb":"route"}
+{"q":"Step-free walk from Times Square to Empire State","expect_verb":"route"}
+{"q":"Wheelchair route Union Square to Washington Sq Park","expect_verb":"route"}
+{"q":"Accessible path from Atlantic Av-Barclays to DUMBO","expect_verb":"route"}
+{"q":"No stairs please, Penn Station to Grand Central","expect_verb":"route"}
+{"q":"ADA route from Brooklyn Bridge MN to DUMBO","expect_verb":"route"}
+{"q":"My wheelchair user friend needs to go from Times Square to Empire State","expect_verb":"route"}
+{"q":"Step-free directions from Yankee Stadium to 161 St","expect_verb":"route"}
+{"q":"Curb-cut accessible walk Penn Station to Times Square","expect_verb":"route"}
+{"q":"Wheelchair Court Sq Queens to LIC Hunters Pt","expect_verb":"route"}
+{"q":"Accessible route Empire State Building to DUMBO","expect_verb":"route"}
+{"q":"Walking with a wheelchair from Williamsburg Bridge MN to Williamsburg Bridge BK","expect_verb":"route"}
+{"q":"Help me find a step-free path Union Square to Penn Station","expect_verb":"route"}
+{"q":"Step-free Times Square to Grand Central","expect_verb":"route"}
+{"q":"Wheelchair-friendly Brooklyn Bridge MN to Atlantic Av-Barclays","expect_verb":"route"}
+{"q":"Low-vision route Washington Sq Park to Union Square","expect_verb":"route"}
+{"q":"Tactile-guided path from Penn Station to Times Square","expect_verb":"route"}
+{"q":"For a blind user, walk from Times Square to Empire State","expect_verb":"route"}
+{"q":"Audible-signal route Grand Central to Union Square","expect_verb":"route"}
+{"q":"Low-vision walk Penn Station to Empire State","expect_verb":"route"}
+{"q":"Compare wheelchair vs distance from Penn Station to Grand Central","expect_verb":"compare"}
+{"q":"How does the distance and wheelchair routes differ from Times Square to Empire State","expect_verb":"compare"}
+{"q":"Compare profiles Penn Station to Times Square","expect_verb":"compare"}
+{"q":"Show me distance and wheelchair both for Union Square to Washington Sq Park","expect_verb":"compare"}
+{"q":"What's the difference between wheelchair and distance routing from Brooklyn Bridge MN to DUMBO","expect_verb":"compare"}
+{"q":"Side by side wheelchair and distance Penn Station to Grand Central","expect_verb":"compare"}
+{"q":"Compare distance against wheelchair from Atlantic Av-Barclays to Prospect Park","expect_verb":"compare"}
+{"q":"Distance vs wheelchair: Times Square to Penn Station","expect_verb":"compare"}
+{"q":"Show both profiles Washington Sq Park to Union Square","expect_verb":"compare"}
+{"q":"How much longer is the wheelchair path Empire State Building to DUMBO","expect_verb":"compare"}
+{"q":"Compare distance vs low_vision Penn Station to Times Square","expect_verb":"compare"}
+{"q":"How do the routes compare for Yankee Stadium to 161 St-Yankee Stadium","expect_verb":"compare"}
+{"q":"Profile comparison Williamsburg Bridge MN to Williamsburg Bridge BK","expect_verb":"compare"}
+{"q":"Wheelchair vs walking distance Court Sq Queens to LIC Hunters Pt","expect_verb":"compare"}
+{"q":"Pit distance against wheelchair Penn to Grand Central","expect_verb":"compare"}
+{"q":"What can I walk to from Union Square in 10 minutes","expect_verb":"reachable"}
+{"q":"Show me a 15 minute walk isochrone from Times Square","expect_verb":"reachable"}
+{"q":"Reachable in 5 minutes from Penn Station for a wheelchair user","expect_verb":"reachable"}
+{"q":"What's a 20 minute walk from Brooklyn Bridge MN side","expect_verb":"reachable"}
+{"q":"15 min reachable from Court Sq Queens","expect_verb":"reachable"}
+{"q":"Everywhere I can reach in 8 minutes from Empire State Building","expect_verb":"reachable"}
+{"q":"How far can I walk from Atlantic Av-Barclays in 12 minutes","expect_verb":"reachable"}
+{"q":"What's within walking distance of Washington Sq Park, 10 min","expect_verb":"reachable"}
+{"q":"30 minute walk isochrone from Penn Station","expect_verb":"reachable"}
+{"q":"Show 10-minute reachable area from Grand Central","expect_verb":"reachable"}
+{"q":"Walking radius 7 minutes from Times Square","expect_verb":"reachable"}
+{"q":"What's a 6 min wheelchair walk from Penn Station","expect_verb":"reachable"}
+{"q":"Wheelchair reachable 10 minutes from Union Square","expect_verb":"reachable"}
+{"q":"Step-free 15 minute walk from Empire State Building","expect_verb":"reachable"}
+{"q":"Accessible walking distance 5 min from Times Square","expect_verb":"reachable"}
+{"q":"Low-vision 10 minute reach from Washington Sq Park","expect_verb":"reachable"}
+{"q":"Tactile walk reach 8 minutes from Penn Station","expect_verb":"reachable"}
+{"q":"Blind-friendly 12 min reachable from Grand Central","expect_verb":"reachable"}
+{"q":"Audible-route 10 min reach from Union Square","expect_verb":"reachable"}
+{"q":"Low-vision 15-minute walking range from Times Square","expect_verb":"reachable"}
+{"q":"If we close 5th Avenue, how does Penn to Grand Central change","expect_verb":"closure"}
+{"q":"What if Broadway is closed, replan from Times Square to Empire State","expect_verb":"closure"}
+{"q":"Close West 33rd Street and reroute Penn to Grand Central","expect_verb":"closure"}
+{"q":"With 7th Avenue closed, walk Penn Station to Times Square","expect_verb":"closure"}
+{"q":"Block 42nd Street, find new route Times Square to Grand Central","expect_verb":"closure"}
+{"q":"Imagine Houston Street is closed, replan Washington Sq Park to Atlantic Av-Barclays","expect_verb":"closure"}
+{"q":"5th Avenue is shut, walk from Empire State to Penn Station","expect_verb":"closure"}
+{"q":"Close Broadway and reroute Times Square to Union Square","expect_verb":"closure"}
+{"q":"What if 8th Avenue is blocked, Penn Station to Grand Central","expect_verb":"closure"}
+{"q":"Construction on Lexington Avenue, route Grand Central to Union Square","expect_verb":"closure"}
+{"q":"Park Avenue closed, replan Penn Station to Times Square","expect_verb":"closure"}
+{"q":"Avenue of the Americas is shut, route Times Square to Washington Sq Park","expect_verb":"closure"}
+{"q":"Close 14th Street, walk Union Square to Empire State Building","expect_verb":"closure"}
+{"q":"With Brooklyn Bridge closed, route Brooklyn Bridge MN to DUMBO","expect_verb":"closure"}
+{"q":"23rd Street closure, replan Penn Station to Empire State Building","expect_verb":"closure"}
+{"q":"Inspect segment n_312002 to n_294199","expect_verb":"inspect"}
+{"q":"Tell me about the segment from n_131685 to n_131686","expect_verb":"inspect"}
+{"q":"What ADA properties does segment n_0 to n_1 have","expect_verb":"inspect"}
+{"q":"Show details for edge n_131685 n_131686","expect_verb":"inspect"}
+{"q":"Inspect n_312002 n_294199","expect_verb":"inspect"}
+{"q":"What's the surface and slope on n_0 to n_1","expect_verb":"inspect"}
+{"q":"Detail segment n_3120 to n_4567","expect_verb":"inspect"}
+{"q":"Get info on edge n_500 to n_501","expect_verb":"inspect"}
+{"q":"Inspect the edge from n_42 to n_43","expect_verb":"inspect"}
+{"q":"What does the segment n_999 to n_1000 look like","expect_verb":"inspect"}
+{"q":"Tell me curb info for n_2000 to n_2001","expect_verb":"inspect"}
+{"q":"What's the kerb on edge n_3000 n_3001","expect_verb":"inspect"}
+{"q":"Segment audit n_111 n_222","expect_verb":"inspect"}
+{"q":"Slope and surface n_555 n_556","expect_verb":"inspect"}
+{"q":"Describe edge n_777 to n_778","expect_verb":"inspect"}
+{"q":"Penn to Grand Central, accessible","expect_verb":"route"}
+{"q":"Walk Times Square to Empire State avoiding stairs","expect_verb":"route"}
+{"q":"Plan a route, Empire State to DUMBO","expect_verb":"route"}
+{"q":"From Union Square, where can I walk in 12 min","expect_verb":"reachable"}
+{"q":"Penn Station to Grand Central, but with 5th Avenue closed","expect_verb":"closure"}

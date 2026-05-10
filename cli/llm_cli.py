@@ -175,12 +175,17 @@ def run_bench(path: str, model: str):
                 continue
             cases.append(json.loads(line))
 
+    from collections import Counter
     n_pass_verb  = 0
     n_pass_exec  = 0
     times = []
+    by_verb_total = Counter()
+    by_verb_pass  = Counter()
+    confusion     = Counter()  # (expected, got)
     for i, case in enumerate(cases, start=1):
         q = case["q"]
         expect_verb = case["expect_verb"]
+        by_verb_total[expect_verb] += 1
         raw, dt = call_ollama(model, q)
         times.append(dt)
         ok, reason, argv = parse_and_validate(raw)
@@ -188,6 +193,9 @@ def run_bench(path: str, model: str):
         verb_pass = (verb == expect_verb)
         if verb_pass:
             n_pass_verb += 1
+            by_verb_pass[expect_verb] += 1
+        else:
+            confusion[(expect_verb, verb or "(invalid)")] += 1
 
         # Optional execution check — does the parsed command return Ok?
         exec_pass = None
@@ -223,7 +231,22 @@ def run_bench(path: str, model: str):
     if n_exec_attempted:
         print(f"exec returns Ok: {n_pass_exec}/{n_exec_attempted} "
               f"= {100*n_pass_exec/n_exec_attempted:.0f}%")
-    print(f"avg latency:   {sum(times)/len(times)*1000:.0f}ms")
+    print(f"avg latency:   {sum(times)/len(times)*1000:.0f}ms  "
+          f"(p50={sorted(times)[len(times)//2]*1000:.0f}ms, "
+          f"p95={sorted(times)[int(0.95*len(times))]*1000:.0f}ms)")
+
+    # Per-verb pass rate
+    print()
+    print(f"{'verb':<11}{'pass':>6}{'total':>7}{'rate':>7}")
+    for v in sorted(by_verb_total):
+        t = by_verb_total[v]; p = by_verb_pass[v]
+        print(f"  {v:<10}{p:>6}{t:>7}{100*p/t:>6.0f}%")
+
+    if confusion:
+        print()
+        print("Confusion (expected -> got):")
+        for (exp, got), c in confusion.most_common():
+            print(f"  {exp:<10} -> {got:<10} {c}")
 
 
 if __name__ == "__main__":
