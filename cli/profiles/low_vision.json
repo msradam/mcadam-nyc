@@ -1,0 +1,12 @@
+{
+  "id": "low_vision",
+  "description": "Low-vision pedestrian routing. Penalizes crossings without tactile paving and unlit segments.",
+  "blocks": [],
+  "weights": {
+    "base": "length",
+    "multipliers": [
+      {"if": {"footway_eq": "crossing", "tactile_paving_false": true}, "factor": 2.0},
+      {"if": {"lit_false": true}, "factor": 1.5}
+    ]
+  }
+}

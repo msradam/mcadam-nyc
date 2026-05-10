@@ -1,0 +1,19 @@
+{
+  "id": "wheelchair",
+  "description": "Wheelchair-aware pedestrian routing. Blocks steps and crossings without curb ramps; penalizes steep grades and rough surfaces.",
+  "blocks": [
+    {"if": {"highway_eq": "steps"}},
+    {"if": {"footway_eq": "crossing", "curbramps_false": true}},
+    {"if": {"incline_pct_gt": 8.3}},
+    {"if": {"incline_pct_lt": -10.0}}
+  ],
+  "weights": {
+    "base": "length",
+    "multipliers": [
+      {"if": {"footway_eq": "crossing"},  "factor": 1.4},
+      {"if": {"surface_in": ["gravel", "dirt"]}, "factor": 3.0},
+      {"if": {"surface_in": ["paving_stones"]},  "factor": 1.3},
+      {"if": {"incline_pct_gt": 5.0}, "factor": 2.0}
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "id": "distance",
+  "description": "Minimum-distance pedestrian routing. Treats all walkable edges equally.",
+  "blocks": [],
+  "weights": {
+    "base": "length",
+    "multipliers": []
+  }
+}
